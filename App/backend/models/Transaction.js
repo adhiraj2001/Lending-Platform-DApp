@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TransactionSchema = new Schema({
-	lender_email: {
-		type: String,
-		required: true
-	},
 	borrower_email: {
 		type: Number,
+		required: true
+	},
+	lender_email: {
+		type: String,
 		required: true
 	},
 	amount: {

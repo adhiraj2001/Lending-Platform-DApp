@@ -15,78 +15,42 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 
-const Buyer_Orders = () => {
+const Lender_Transactions = () => {
 
-    const [orders, setOrders] = useState([]);
+    const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         axios
-            .post("/api/orders/view_buyer", { buyer_email: ls.get("email") })
+            .post("http://localhost:4000/transactions/view_lender", { lender_email: ls.get("email") })
             .then((res) => {
                 console.log(res.data);
-                setOrders(res.data);
+                setTransactions(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
         
-        console.log(orders);
+        console.log(transactions);
     }, []);
 
     //! ^ RELOAD THIS PAGE ON STATE VARIABLE STATUS ^ !//
 
-    const onOrder1 = args => event => {
-        const updateOrder = {
-            _id: orders[args]._id,
-            name: orders[args].name,
-            price: orders[args].price,
-            quantity: orders[args].quantity,
-            type: orders[args].type,
-            vendor_email: orders[args].vendor_email,
-            buyer_email: orders[args].buyer_email,
-            shop: orders[args].shop,
+    const onTransaction = args => event => {
+        const updateTransaction = {
+            _id: transactions[args]._id,
+            borrower_email: transactions[args].borrower_email,
+            lender_email: transactions[args].lender_email,
+            amount: transactions[args].amount,
             status: "Completed"
         }
 
         axios
-            .post("/api/orders/update", updateOrder)
+            .post("http://localhost:4000/transactions/update", updateTransaction)
             .then((res) => {
                 console.log(res.data);
-                orders[args].status = updateOrder.status;
+                transactions[args].status = updateTransaction.status;
 
-                alert(`Item ${orders[args].name} Order placed successfully!`);
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-
-                console.log(err.response.data);
-                alert(err.response.data[Object.keys(err.response.data)[0]]);
-
-                window.location.reload();
-            });
-    }
-
-    const onOrder2 = args => event => {
-        const updateOrder = {
-            _id: orders[args]._id,
-            name: orders[args].name,
-            price: orders[args].price,
-            quantity: orders[args].quantity,
-            type: orders[args].type,
-            vendor_email: orders[args].vendor_email,
-            buyer_email: orders[args].buyer_email,
-            shop: orders[args].shop,
-            status: "Rejected"
-        }
-
-        axios
-            .post("/api/orders/update", updateOrder)
-            .then((res) => {
-                console.log(res.data);
-                orders[args].status = updateOrder.status;
-
-                alert(`Item ${orders[args].name} Order placed successfully!`);
+                alert(`Transfer done successfully!`);
                 window.location.reload();
             })
             .catch((err) => {
@@ -104,27 +68,22 @@ const Buyer_Orders = () => {
       <Table sx={{ minWidth: 650, background: "rgba(0, 0, 0, 0.1)" }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center"> Sr No.</TableCell>
-            <TableCell align="center"> Name </TableCell>
-            <TableCell align="center"> Type </TableCell>
-            <TableCell align="center"> Price </TableCell>
-            <TableCell align="center"> Quantity </TableCell>
-            <TableCell align="center"> Shop </TableCell>
+            <TableCell align="center"> Sr No. </TableCell>
+            <TableCell align="center"> Lender_Email </TableCell>
+            <TableCell align="center"> Borrower_Email </TableCell>
             <TableCell align="center"> Status </TableCell>
-            <TableCell align="center"> Options </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((row, ind) => (
+          {transactions.map((row, ind) => (
             <TableRow
                 key={ind}
               >
                 <TableCell align="center">{ind + 1}</TableCell>  
                 <TableCell align="center"> {row.name} </TableCell>
-                <TableCell align="center">{row.type}</TableCell>
-                <TableCell align="center">{row.price}</TableCell>
-                <TableCell align="center">{row.quantity}</TableCell>
-                <TableCell align="center">{row.shop}</TableCell>
+                <TableCell align="center">{row.lender_email}</TableCell>
+                <TableCell align="center">{row.borrower_email}</TableCell>
+                <TableCell align="center">{row.amount}</TableCell>
                 <TableCell align="center">
                       <Typography
                           style={{
@@ -146,10 +105,10 @@ const Buyer_Orders = () => {
                           { row.status }
                     </Typography>
                 </TableCell>
-                <TableCell align="center">
-                      <Button variant="contained" onClick={onOrder1(ind)} disabled={row.status !== "Ready for Pickup"} sx={{ ml: 2 }} > Pick Up </Button>
+                {/* <TableCell align="center">
+                      <Button variant="contained" onClick={onOrder(ind)} disabled={row.status !== "Ready for Pickup"} sx={{ ml: 2 }} > Pick Up </Button>
                       <Button variant="contained" onClick={onOrder2(ind)} disabled={row.status === "Completed" || row.status === "Rejected"} sx={{ ml: 2 }} > Cancel </Button>
-                </TableCell>
+                </TableCell> */}
             </TableRow>
           ))}
         </TableBody>
@@ -158,4 +117,4 @@ const Buyer_Orders = () => {
   );
 }
 
-export default Buyer_Orders;
+export default Lender_Transactions;

@@ -79,8 +79,8 @@ const Navbar = () => {
           ) : null}
 
           {ls.get("login") === "true" ? (
-            <Button color="inherit" onClick={() => navigate("/buyer_orders")}>
-              Orders
+            <Button color="inherit" onClick={() => navigate("/lender_transactions")}>
+              Lender Transactions
             </Button>
           ) : null}
 
@@ -97,8 +97,8 @@ const Navbar = () => {
           ) : null}
 
           {ls.get("login") === "true" ? (
-            <Button color="inherit" onClick={() => navigate("/vendor_orders")}>
-              Orders
+            <Button color="inherit" onClick={() => navigate("/borrower_transactions")}>
+              Borrower Transactions
             </Button>
           ) : null}
 

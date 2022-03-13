@@ -72,8 +72,8 @@ router.post("/update", (req, res) => {
 //* @route POST /transactions/view
 //* @desc view all Transactions
 //* @access Public
-router.post("/view_transaction", (req, res) => {
-    Order.find({ borrower_email: req.body.borrower_email })
+router.post("/view_borrower", (req, res) => {
+    Transaction.find({ borrower_email: req.body.borrower_email })
         .then(items => res.json(items))
         .catch(err => res.status(400).json(err));
 });
@@ -82,8 +82,8 @@ router.post("/view_transaction", (req, res) => {
 //* @route POST /transactions/view
 //* @desc view all transactions
 //* @access Public
-router.post("/view_lender_email", (req, res) => {
-    Order.find({ lender_email: req.body.lender_email })
+router.post("/view_lender", (req, res) => {
+    Transaction.find({ lender_email: req.body.lender_email })
         .then(items => res.json(items))
         .catch(err => res.status(400).json(err));
 });

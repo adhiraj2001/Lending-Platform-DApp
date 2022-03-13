@@ -10,8 +10,8 @@ import Login from "./components/user/Login";
 import Profile from "./components/user/Profile";
 import Add_Request from "./components/common/Add_Request";
 import User_Requests from "./components/common/User_Requests";
-import Buyer_Orders from "./components/common/Buyer_Orders";
-import Vendor_Orders from "./components/common/Vendor_Orders";
+import Lender_Transactions from "./components/common/Lender_Transactions";
+import Borrower_Transactions from "./components/common/Borrower_Transactions";
 
 import Navbar from "./components/templates/Navbar";
 // import Profile from "./components/users/Profile";
@@ -43,8 +43,8 @@ function App() {
           <Route path="products_list" element={<Products_List />} />
           <Route path="add_request" element={<Add_Request />} />
           <Route path="user_requests" element={<User_Requests />} />
-          <Route path="buyer_orders" element={<Buyer_Orders />} />
-          <Route path="vendor_orders" element={<Vendor_Orders />} />
+          <Route path="lender_transactions" element={<Lender_Transactions />} />
+          <Route path="borrower_transactions" element={<Borrower_Transactions />} />
         </Route>
       </Routes>
     </BrowserRouter>

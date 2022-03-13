@@ -23,32 +23,29 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { fontWeight } from "@mui/system";
 
-const Products_List = (props) => {
-    const [products, setProducts] = useState([]);
-    const [sortedProducts, setSortedProducts] = useState([]);
+const Requests_List = (props) => {
+    const [requests, setRequests] = useState([]);
+    const [sortedRequests, setSortedRequests] = useState([]);
 
-    const [vendors, setVendors] = useState([]);
+    const [borrowers, setBorrowers] = useState([]);
      
     // const [sortName, setSortName] = useState(true);
-    const [sortPrice, setSortPrice] = useState(true);
-    const [sortQuantity, setSortQuantity] = useState(true);
+    const [sortAmount, setSortAmount] = useState(true);
 
     const [searchText, setSearchText] = useState("");
 
     const [minVal, setMinVal] = useState(0);
     const [maxVal, setMaxVal] = useState(1000);
 
-    const [vendorShop, setVendorShop] = useState("");
-
-    const [rowQuantity, setRowQuantity] = useState({});
+    const [borrowerName, setBorrowerName] = useState("");
 
     useEffect(() => {
         axios
-            .get("/api/products")
+            .get("http://localhost:4000/requests")
             .then((res) => {
                     console.log(res.data);
-                    setProducts(res.data);
-                    setSortedProducts(res.data);
+                    setRequests(res.data);
+                    setSortedRequests(res.data);
                     setSearchText("");
                 })
             .catch((err) => {
@@ -59,10 +56,10 @@ const Products_List = (props) => {
         // rowQuantity.fill(1);
         
         axios
-            .get("/api/vendors")
+            .get("http://localhost:4000/users")
             .then((res) => {
                     console.log(res.data); 
-                    setVendors(res.data);
+                    setBorrowers(res.data);
                 })
             .catch((err) => {
                 console.log(err);
@@ -87,38 +84,21 @@ const Products_List = (props) => {
     // };
 
     const sortChange1 = () => {
-        let productsTemp = products;
-        const flag = sortPrice;
+        let requestsTemp = requests;
+        const flag = sortAmount;
         
-        productsTemp.sort((a, b) => {
-            if (a.price != undefined && b.price != undefined) {
-                return (1 - flag * 2) * (a.price - b.price);
+        requestsTemp.sort((a, b) => {
+            if (a.amount != undefined && b.amount != undefined) {
+                return (1 - flag * 2) * (a.amount - b.amount);
             }
             else {
                 return 1;
             }
         });
         
-        setSortedProducts(productsTemp);
-        setSortPrice(!sortPrice);
+        setSortedRequests(requestsTemp);
+        setSortAmount(!sortAmount);
     };
-
-    const sortChange2 = () => {
-        let productsTemp = products;
-        const flag = sortQuantity;
-        
-        productsTemp.sort((a, b) => {
-            if (a.quantity != undefined && b.quantity != undefined) {
-                return (1 - flag * 2) * (a.quantity - b.quantity);
-            } else {
-                return 1;
-            }
-        });
-        
-        setSortedProducts(productsTemp);
-        setSortQuantity(!sortQuantity);
-    };
-    
 
     const onChangeSearchText = (event) => {
         console.log(event.target.value);
@@ -135,7 +115,7 @@ const Products_List = (props) => {
             setMinVal(event.target.value);
         }
             
-        console.log(`max_val: ${maxVal}`);
+        console.log(`min_val: ${minVal}`);
     };
 
     const onChangeMax = (event) => {
@@ -151,52 +131,34 @@ const Products_List = (props) => {
         console.log(`max_val: ${maxVal}`);
     };
 
-    const onChangeVendor = (event) => {
+    const onChangeBorrowers = (event) => {
         console.log(event.target.value);
-        setVendorShop(event.target.value);
+        setBorrowers(event.target.value);
     };
 
-    const onChangeQuantity = args => e => {
-        console.log(args);
-        // console.log(e.target.value);
-        
-        rowQuantity[args] = e.target.value;
-        console.log(rowQuantity);
-    }
-
-    const onOrder = args => event => {
+    const onTransfer = args => event => {
         event.preventDefault();
 
-        const newPrice = sortedProducts[args].price * parseInt(rowQuantity[args]);
-        const newOrder = {
-            name: sortedProducts[args].name,
-            price: newPrice,
-            quantity: parseInt(rowQuantity[args]),
-            type: sortedProducts[args].type,
-            vendor_email: sortedProducts[args].vendor_email,
-            buyer_email: ls.get("email"),
-            shop: sortedProducts[args].shop
+        const newAmount = sortedRequests[args].amount;
+        const newTransaction = {
+            name: sortedRequests[args].name,
+            borrower_email: sortedRequests[args].borrower_email,
+            lender_email: ls.get("email"),
+            amount: newAmount
         };
 
-        if (newOrder.quantity > sortedProducts.quantity || newOrder.quantity <= 0) {
-			alert(`Sorry ${newOrder.order_quantity} quantity is not available.`);
-			window.location.reload();
-			return;
-		}
-
-        if (newPrice > ls.get("money")) {
-            alert(`Sorry you don't have enough money for price:[${newPrice}]`);
+        if (newAmount > ls.get("balance")) {
+            alert(`Sorry you don't have enough blance to make the transfer:[${newAmount}]`);
             window.location.reload();
             return;
         }
 
         axios
-            .post("/api/orders/add", newOrder)
+            .post("http://localhost:4000/orders/add", newTransaction)
             .then((res) => {
                 console.log(res.data);
 
-                const remQuantity = sortedProducts[args].quantity - newOrder.quantity;
-                const updateProduct = {
+                const updateRequest = {
                     _id: sortedProducts[args]._id,
                     name:  sortedProducts[args].name,
                     shop: sortedProducts[args].shop,
@@ -439,4 +401,4 @@ const Products_List = (props) => {
     );
 };
 
-export default Products_List;
+export default Requests_List;

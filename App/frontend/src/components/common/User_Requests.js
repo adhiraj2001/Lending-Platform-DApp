@@ -31,7 +31,7 @@ const User_Requests = () => {
   
   const onCancel = args => event => {
       axios
-          .post("/api/requests/delete", { _id: requests[args]._id })
+          .post("http://localhost:4000/requests/delete", { _id: requests[args]._id })
           .then((res) => {
               console.log(res.data);
 
