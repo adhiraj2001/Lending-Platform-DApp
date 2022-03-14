@@ -57,12 +57,12 @@ class Add_Request extends Component {
             
             borrower_name: this.state.borrower_name,
             borrower_email: this.state.borrower_email,
-            amount: this.state.ampunt
+            amount: this.state.amount
         };
 
         console.log(newRequest);
 
-        axios.post("/api/requests/add", newRequest)
+        axios.post("http://localhost:4000/requests/add", newRequest)
             .then(res => {
                 console.log(res.data);
 
@@ -70,7 +70,7 @@ class Add_Request extends Component {
                 window.location.reload();
             })
             .catch(err => {
-                console.log(err.response.data);
+                console.log(err.response.data.amount);
                 alert(err.response.data[Object.keys(err.response.data)[0]]);
             });
     };

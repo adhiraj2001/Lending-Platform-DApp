@@ -77,7 +77,7 @@ class Register extends Component {
 
         console.log(newUser);
 
-        axios.post("/api/users/register", newUser)
+        axios.post("http://localhost:4000/users/register", newUser)
             .then(res => {
                 alert("User Registered Successfully");
                 this.reset();
@@ -87,6 +87,7 @@ class Register extends Component {
             })
             .catch(err => {
                 console.log(err.response.data);
+                console.log(err.response.data.age)
                 alert(err.response.data[Object.keys(err.response.data)[0]]);
             });
     };

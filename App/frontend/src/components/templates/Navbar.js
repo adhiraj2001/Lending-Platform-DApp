@@ -16,20 +16,13 @@ const Navbar = () => {
     e.preventDefault();
 
     ls.set("login", "false");
-    ls.set("user_type", "");
-    ls.set("username", "");
 
     ls.set("name", "");
     ls.set("email", "");
     ls.set("password", "");
     ls.set("contact_no", 0);
     ls.set("age", 0);
-    ls.set("batch", "");
-
-    ls.set("manager", "");
-    ls.set("shop", "");
-    ls.set("op_time", "");
-    ls.set("ed_time", "");
+    ls.set("balance", 0);
     
 		window.location = "/";
   };
@@ -44,7 +37,7 @@ const Navbar = () => {
             sx={{ cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
-            Canteen Portal
+            Crypto Lending Platform
           </Typography>
 
           {//! TODO: https://github.com/KanishAnand/Bulk-Purchase-WebApp/blob/2f49585bd820c2ee111e9f1d2302bc11524cd833/frontend/src/components/layout/Navbar.js#L107 
@@ -73,14 +66,8 @@ const Navbar = () => {
           </Button> */}
 
           {ls.get("login") === "true" ? (
-            <Button color="inherit" onClick={() => navigate("/products_list")}>
-              Products List
-            </Button>
-          ) : null}
-
-          {ls.get("login") === "true" ? (
-            <Button color="inherit" onClick={() => navigate("/lender_transactions")}>
-              Lender Transactions
+            <Button color="inherit" onClick={() => navigate("/requests_list")}>
+              Requests List
             </Button>
           ) : null}
 
@@ -92,13 +79,19 @@ const Navbar = () => {
 
           {ls.get("login") === "true" ? (
             <Button color="inherit" onClick={() => navigate("/user_requests")}>
-              Requests
+              Your Requests
+            </Button>
+          ) : null}
+
+          {ls.get("login") === "true" ? (
+            <Button color="inherit" onClick={() => navigate("/lender_transactions")}>
+              Your Lending Transactions
             </Button>
           ) : null}
 
           {ls.get("login") === "true" ? (
             <Button color="inherit" onClick={() => navigate("/borrower_transactions")}>
-              Borrower Transactions
+              Your Borrowing Transactions
             </Button>
           ) : null}
 

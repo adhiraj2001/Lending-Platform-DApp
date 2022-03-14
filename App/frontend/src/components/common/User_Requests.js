@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 const User_Requests = () => {
@@ -19,7 +20,7 @@ const User_Requests = () => {
 
   useEffect(() => {
       axios
-          .post("http://localhost:4000/requests/view", { vendor_email: ls.get("email") })
+          .post("http://localhost:4000/requests/view", { borrower_email: ls.get("email") })
           .then((res) => {
               console.log(res.data);
               setRequests(res.data);
@@ -66,7 +67,25 @@ const User_Requests = () => {
               >
                 <TableCell align="center">{ind + 1}</TableCell>  
                 <TableCell align="center"> {row.amount} </TableCell>
-                <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">
+                    <Typography
+                        style={{
+                            backgroundColor:
+                                (row.status === "Pending" && "grey") ||
+                                (row.status === "Waiting" && "grey") ||
+                                (row.status === "Complete" && "green") ||
+                                (row.status === "Rejected" && "red"),
+                            color: "white",
+                            padding: "5px",
+                            borderRadius: "5px",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                            margin: "5px"
+                        }}
+                    >
+                      { row.status }
+                    </Typography>
+                </TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 <TableCell align="center">
                       <Button variant="contained" onClick={onCancel(ind)} sx={{ ml: 2 }} > Delete </Button>

@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet, Redirect } from "react-router-dom";
 import "./App.css";
 
-// import UsersList from "./components/users/UsersList";
-import Products_List from "./components/common/Products_List";
+import Requests_List from "./components/common/Requests_List";
 
 import Home from "./components/common/Home";
 import Register from "./components/user/Register";
@@ -40,7 +39,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
 
           {/* <Route path="users" element={<UsersList />} /> */}
-          <Route path="products_list" element={<Products_List />} />
+          <Route path="requests_list" element={<Requests_List />} />
           <Route path="add_request" element={<Add_Request />} />
           <Route path="user_requests" element={<User_Requests />} />
           <Route path="lender_transactions" element={<Lender_Transactions />} />

@@ -35,33 +35,33 @@ const Lender_Transactions = () => {
 
     //! ^ RELOAD THIS PAGE ON STATE VARIABLE STATUS ^ !//
 
-    const onTransaction = args => event => {
-        const updateTransaction = {
-            _id: transactions[args]._id,
-            borrower_email: transactions[args].borrower_email,
-            lender_email: transactions[args].lender_email,
-            amount: transactions[args].amount,
-            status: "Completed"
-        }
+    // const onTransaction = args => event => {
+    //     const updateTransaction = {
+    //         _id: transactions[args]._id,
+    //         borrower_email: transactions[args].borrower_email,
+    //         lender_email: transactions[args].lender_email,
+    //         amount: transactions[args].amount,
+    //         status: "Completed"
+    //     }
 
-        axios
-            .post("http://localhost:4000/transactions/update", updateTransaction)
-            .then((res) => {
-                console.log(res.data);
-                transactions[args].status = updateTransaction.status;
+    //     axios
+    //         .post("http://localhost:4000/transactions/update", updateTransaction)
+    //         .then((res) => {
+    //             console.log(res.data);
+    //             transactions[args].status = updateTransaction.status;
 
-                alert(`Transfer done successfully!`);
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
+    //             alert(`Transfer done successfully!`);
+    //             window.location.reload();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
 
-                console.log(err.response.data);
-                alert(err.response.data[Object.keys(err.response.data)[0]]);
+    //             console.log(err.response.data);
+    //             alert(err.response.data[Object.keys(err.response.data)[0]]);
 
-                window.location.reload();
-            });
-    }
+    //             window.location.reload();
+    //         });
+    // }
 
     return (
     <TableContainer component={Paper}>
@@ -71,7 +71,9 @@ const Lender_Transactions = () => {
             <TableCell align="center"> Sr No. </TableCell>
             <TableCell align="center"> Lender_Email </TableCell>
             <TableCell align="center"> Borrower_Email </TableCell>
-            <TableCell align="center"> Status </TableCell>
+            <TableCell align="center"> Amount </TableCell>
+            <TableCell align="center"> Date </TableCell>
+            {/* <TableCell align="center"> Status </TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -79,12 +81,12 @@ const Lender_Transactions = () => {
             <TableRow
                 key={ind}
               >
-                <TableCell align="center">{ind + 1}</TableCell>  
-                <TableCell align="center"> {row.name} </TableCell>
+                <TableCell align="center">{ind + 1}</TableCell>
                 <TableCell align="center">{row.lender_email}</TableCell>
                 <TableCell align="center">{row.borrower_email}</TableCell>
                 <TableCell align="center">{row.amount}</TableCell>
-                <TableCell align="center">
+                <TableCell align="center">{row.date}</TableCell>
+                {/* <TableCell align="center">
                       <Typography
                           style={{
                              backgroundColor:
@@ -104,7 +106,7 @@ const Lender_Transactions = () => {
                       >
                           { row.status }
                     </Typography>
-                </TableCell>
+                </TableCell> */}
                 {/* <TableCell align="center">
                       <Button variant="contained" onClick={onOrder(ind)} disabled={row.status !== "Ready for Pickup"} sx={{ ml: 2 }} > Pick Up </Button>
                       <Button variant="contained" onClick={onOrder2(ind)} disabled={row.status === "Completed" || row.status === "Rejected"} sx={{ ml: 2 }} > Cancel </Button>

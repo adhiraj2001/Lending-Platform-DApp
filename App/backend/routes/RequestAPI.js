@@ -16,10 +16,10 @@ var valid = data => {
     let errors = {};
 
     if (!Check.isInt(data.amount + "")) {
-        errors.amount = "Amount should be an Integer";
+        errors.amount = `Amount should be an Integer : ${data.amount + ""}`;
     }
-    else if (((data.amount + 0) || 0) <= 0) {
-        errors.amount = "Amount should be a positive Integer";
+    else if ((data.amount + 0) <= 0) {
+        errors.amount = `Amount should be a positive Integer : ${data.amount}`;
     }
 
 	// // Password checks

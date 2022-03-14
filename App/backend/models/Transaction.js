@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // Create Schema
 const TransactionSchema = new Schema({
 	borrower_email: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	lender_email: {
@@ -21,6 +21,7 @@ const TransactionSchema = new Schema({
 	},
 	date: {
 		type: Date,
+		required: false,
 		default: Date.now
 	}
 });

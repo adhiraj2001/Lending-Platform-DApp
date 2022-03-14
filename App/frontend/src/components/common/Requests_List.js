@@ -131,21 +131,23 @@ const Requests_List = (props) => {
         console.log(`max_val: ${maxVal}`);
     };
 
-    const onChangeBorrowers = (event) => {
+    const onChangeBorrowerName = (event) => {
         console.log(event.target.value);
-        setBorrowers(event.target.value);
+        setBorrowerName(event.target.value);
     };
 
-    const onTransfer = args => event => {
+    const onTransaction = args => event => {
         event.preventDefault();
 
         const newAmount = sortedRequests[args].amount;
+
         const newTransaction = {
-            name: sortedRequests[args].name,
             borrower_email: sortedRequests[args].borrower_email,
             lender_email: ls.get("email"),
             amount: newAmount
         };
+
+        console.log(newTransaction);
 
         if (newAmount > ls.get("balance")) {
             alert(`Sorry you don't have enough blance to make the transfer:[${newAmount}]`);
@@ -154,27 +156,29 @@ const Requests_List = (props) => {
         }
 
         axios
-            .post("http://localhost:4000/orders/add", newTransaction)
+            .post("http://localhost:4000/transactions/add", newTransaction)
             .then((res) => {
-                console.log(res.data);
 
+                console.log(res.data);
+                
                 const updateRequest = {
-                    _id: sortedProducts[args]._id,
-                    name:  sortedProducts[args].name,
-                    shop: sortedProducts[args].shop,
-                    vendor_email: sortedProducts[args].vendor_email,
-                    type: sortedProducts[args].type,
-                    price: sortedProducts[args].price,
-                    quantity: remQuantity,
-                    status: sortedProducts.status
+                    _id: sortedRequests[args]._id,
+                    borrower_name: sortedRequests[args].borrower_name,
+                    borrower_email:  sortedRequests[args].borrower_email,
+                    amount: newAmount,
+                    status: "Complete"
                 };
+
+                console.log(updateRequest);
+
+                // TODO: Maybe DELETE or remove button
                 
                 axios
-                    .post("/api/products/update", updateProduct)
+                    .post("http://localhost:4000/requests/update", updateRequest)
                     .then((res) => {
                         // console.log("WORKING");
                         console.log(res.data);
-                        sortedProducts[args].quantity = remQuantity;
+                        sortedRequests[args].status = "Complete";
                     })
                     .catch((err) => {
                         console.log(err);
@@ -186,22 +190,21 @@ const Requests_List = (props) => {
                         return;
                     });
 
-                const remMoney = ls.get("money") - newPrice;
+                const remBalance = ls.get("balance") - newAmount;
                 const updateUser = {
                     name: ls.get("name"),
                     email: ls.get("email"),      // <-- id not _id
                     password: ls.get("password"),
                     contact_no: ls.get("contact_no"),
                     age: ls.get("age"),
-                    batch: ls.get("batch"),
-                    money: remMoney
+                    balance: remBalance,
                 }
 
                 axios
-                    .post("/api/buyers/update", updateUser)
+                    .post("http://localhost:4000/users/update", updateUser)
                     .then((res) => {
                         console.log(res.data);
-                        ls.set("money", remMoney);
+                        ls.set("balance", remBalance);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -213,7 +216,48 @@ const Requests_List = (props) => {
                         return;
                     });
 
-                alert(`Item ${newOrder.name} Order placed successfully!`);
+                axios
+                    .post("http://localhost:4000/users/find", {email: sortedRequests[args].borrower_email})
+                    .then((res) => {
+                        console.log(res.data);
+                        const newBalance = res.data.balance + newAmount;
+                        const updateBorrower = {
+                            _id: res.data._id,
+                            name: res.data.name,
+                            email: res.data.email,
+                            password: res.data.password,
+                            contact_no: res.data.contact_no,
+                            age: res.data.age,
+                            balance: newBalance,
+                        }
+
+                        axios
+                            .post("http://localhost:4000/users/update", updateBorrower)
+                            .then((res) => {
+                                console.log(res.data);
+                                ls.set("balance", newBalance);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+
+                                console.log(err.response.data);
+                                alert(err.response.data[Object.keys(err.response.data)[0]]);
+
+                                window.location.reload();
+                                return;
+                            });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+
+                        console.log(err.response.data);
+                        alert(err.response.data[Object.keys(err.response.data)[0]]);
+
+                        window.location.reload();
+                        return;
+                    });
+
+                alert(`Transfered successfully!`);
                 window.location.reload();
             })
             .catch((err) => {
@@ -232,7 +276,7 @@ const Requests_List = (props) => {
             <Grid item xs={12} md={3} lg={3}>
             <List component="nav" aria-label="mailbox folders">
                 <ListItem button>
-                <h2>Wallet : <span> {ls.get('money')} units </span> </h2>
+                <h2>Balance : <span> {ls.get('balance')} units </span> </h2>
                 </ListItem>
                 <ListItem text>
                 <h1>Filters</h1>
@@ -266,7 +310,7 @@ const Requests_List = (props) => {
                 <ListItem>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        Price
+                        Amount
                     </Grid>
                     <Grid item xs={6}>
                     <TextField
@@ -290,23 +334,23 @@ const Requests_List = (props) => {
                     </Grid>
                 </Grid>
                 </ListItem>
-                <Divider />
+                {/* <Divider />
                 <ListItem divider>
                 <Autocomplete
                     id="combo-box-demo"
-                    options={vendors}
-                    getOptionLabel={(option) => option.shop}
+                    options={borrowers}
+                    getOptionLabel={(option) => option.name}
                     fullWidth
                     renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Selected Shop"
+                        label="Selected Name"
                         variant="outlined"
-                        onChange={onChangeVendor}
+                        onChange={onChangeBorrowerName}
                     />
                     )}
                 />
-                </ListItem>
+                </ListItem> */}
             </List>
             </Grid>
             <Grid item xs={12} md={9} lg={9}>
@@ -317,7 +361,9 @@ const Requests_List = (props) => {
                         <TableCell align="center"> 
                             Sr No.
                         </TableCell> 
-                        {/* <TableCell align="center">
+
+                        { //TODO: Date
+                        /* <TableCell align="center">
                             {" "}
                             <Button onClick={sortChange}>
                                 {sortName ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
@@ -328,66 +374,44 @@ const Requests_List = (props) => {
                             Name
                         </TableCell>
                         <TableCell align="center">
-                            Type
+                            Email
                         </TableCell>
                         <TableCell align="center">
                             {" "}
                             <Button onClick={sortChange1}>
-                                {sortPrice ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
+                                {sortAmount ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
                             </Button>
-                            Price
+                            Amount
                         </TableCell>
+                        {/* <TableCell align="center">
+                            Status
+                        </TableCell> */}
                         <TableCell align="center">
-                            {" "}
-                            <Button onClick={sortChange2}>
-                                {sortQuantity ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
-                            </Button>
-                            Quantity
-                        </TableCell>
-                        <TableCell align="center">
-                            Shop Name
-                        </TableCell>
-                        <TableCell align="center">
-                            Vendor Email
-                        </TableCell>
-                        <TableCell align="center">
-                            Quantity Selected
-                        </TableCell>
-                        <TableCell align="center">
-                            Submit Order
+                            Lend
                         </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sortedProducts.map((product, ind) => {
-                        if (product.name.toLowerCase().includes(searchText.toLowerCase()) && product.price >= minVal && product.price <= maxVal &&
-                            product.shop.toLowerCase().includes(vendorShop.toLowerCase())) {
+                    {sortedRequests.map((request, ind) => {
+                        if (request.borrower_name.toLowerCase().includes(searchText.toLowerCase()) && request.amount >= minVal && request.amount <= maxVal) {
 
                             return (
                             <TableRow key={ind}>
-                                <TableCell align="center">{ind}</TableCell>
+                                <TableCell align="center">{ind + 1}</TableCell>
                                 {/* <TableCell align="center">{product.date}</TableCell> */}
-                                <TableCell align="center">{product.name}</TableCell>
-                                <TableCell align="center">{product.type}</TableCell>
-                                <TableCell align="center">{product.price}</TableCell>
-                                <TableCell align="center">{product.quantity}</TableCell>
-                                <TableCell align="center">{product.shop}</TableCell>
-                                <TableCell align="center">{product.vendor_email}</TableCell>
-                                <TableCell align="center">
-                                    <TextField
-                                        id="standard-basic"
-                                        label="Quantity"
-                                        type="number"
-                                        min={1}
-                                        max={product.quantity}
-                                        placeholder={1}
-                                        onChange={onChangeQuantity(ind)}
-                                        sx={{ width: 150 }}
-                                    />
-                                </TableCell>
-                                <TableCell align="center">
-                                    <Button variant="contained" onClick={onOrder(ind)}> Order </Button>
-                                </TableCell>
+                                <TableCell align="center">{request.borrower_name}</TableCell>
+                                <TableCell align="center">{request.borrower_email}</TableCell>
+                                <TableCell align="center">{request.amount}</TableCell>
+                                {/* <TableCell align="center">{request.status}</TableCell> */}
+                                {request.status === "Complete" ? (
+                                    <TableCell align="center">
+                                        <Button variant="contained" onClick={onTransaction(ind)} style={{backgroundColor: '#12824C', color: '#FFFFFF'}} disabled> Done </Button>
+                                    </TableCell>
+                                ) : (
+                                    <TableCell align="center">
+                                        <Button variant="contained" onClick={onTransaction(ind)}> Lend </Button>
+                                    </TableCell>
+                                )}
                             </TableRow>
                             );
                         }

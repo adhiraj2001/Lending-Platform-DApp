@@ -6,10 +6,10 @@ const cors = require('cors');
 // const passport = require('passport');
 
 const PORT = process.env.PORT || 4000;
-const DB_NAME = 'DeFi_Database';
+const DB_NAME = 'lending_platform';
 
 // const connectionString = 'mongodb://127.0.0.1:27017/' + DB_NAME;
-const connectionString = 'mongodb://mongo:27017/' + DB_NAME;    // for docker container
+// const connectionString = 'mongodb://mongo:27017/' + DB_NAME;    // for docker container
 
 const app = express();
 
@@ -20,16 +20,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //* Connect to MongoDB Atlas
-// const db = require('./config/keys').mongoURI;
-// mongoose.connect(db)
-//     .then(() => console.log('MongoDB Connected...'))
-//     .catch(err => console.log(err));
-
-
-//* Connection to MongoDB
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+const db = require('./config/keys').mongoURI;
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log('Error: ' + err));
+    .catch(err => console.log(err));
+
+
+// //* Connection to MongoDB
+// mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+//     .then(() => console.log('MongoDB Connected...'))
+//     .catch(err => console.log('Error: ' + err));
 
 // const connection = mongoose.connection;
 // connection.once('open', function() {

@@ -19,7 +19,7 @@ const RequestSchema = new Schema({
     status: {
         type: String,
         required: false,
-        default: "Waiting"
+        default: "Pending"
     },
     date: {
         type: Date,

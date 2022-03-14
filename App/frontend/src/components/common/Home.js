@@ -7,7 +7,7 @@ const Home = (props) => {
 
   useEffect(() => {
     
-    setName(ls.get("username"));
+    setName(ls.get("name"));
 
   }, []);
 

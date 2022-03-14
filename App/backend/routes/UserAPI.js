@@ -48,8 +48,8 @@ var valid = data => {
     if (!Check.isInt(data.age + "")) {
         errors.age = "Age should be an Integer";
     }
-    else if (((data.age + 0) || 0) >= 18) {
-        errors.age = "Age should be a positive integer";
+    else if (((data.age + 0) || 0) < 18) {
+        errors.age = `Age should be greater than 18: ${data.age}`;
     }
 
 
