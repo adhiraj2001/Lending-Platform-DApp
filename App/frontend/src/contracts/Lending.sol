@@ -13,6 +13,7 @@ contract Lending {
         ACCEPTING,
         WAITING
     }
+
     enum LoanState {
         REPAID,
         ACCEPTED,
@@ -21,14 +22,16 @@ contract Lending {
         FAILED
     }
 
-    // borrower
+    // Borrower
     struct Proposal {
         uint256 proposalId;
         address borrower;
         uint256 amount;
         uint256 time;
         string mortgage;
+
         ProposalState state;
+
         bool sendMoney;
     }
 
@@ -42,12 +45,12 @@ contract Lending {
         LoanState state;
     }
 
-    Proposal[] public proposals;
-    Loan[] public potential_lenders;
-    Loan[] public loans;
+    Proposal[] public proposals; // all proposals
+    Loan[] public potential_lenders; // lender options
+    Loan[] public loans; // confirmed loans
 
-    mapping(uint256 => address) public proposalToBorrower;
-    mapping(uint256 => address) public loanToLender;
+    mapping(uint256 => address) public proposalToBorrower; // key -> value mapping
+    mapping(uint256 => address) public loanToLender; // key -> value mapping
 
     function createProposal(
         uint256 _loanAmount,
