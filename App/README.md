@@ -1,78 +1,63 @@
-# Crypto Self-Repaying Lending Platform
+# Team 8
+- #### Team Members
+  - [Adhiraj Deshmukh](https://github.com/adhiraj2001)
+  - [Yash Agrawal](https://github.com/yash8589)
+  - [Hariharan](https://github.com/hashtaghari)
+  - [Amey Kunte](https://github.com/ameykunte)
 
-## About
+# Project Design
 
-Crypto Lending Platform based Alchemix DeFi Protocol which allows user to take self-repaying loans.
-User can post public requests for crypto loans, which would be self-repaying.
+<p align ="center">
+<img src="https://i.ibb.co/z54hX1v/Untitled-Workspace.png" alt="reva" border="0">
+</p>
 
-Current working functionalities:
-1. Users can create their accounts in 'Register' page, and log into the website using 'Login' page.
-2. Users can update their profiles and add funds to their wallets using 'Profile' page.
-3. Users can create public requests for obtaining loans as borrower using 'Add Request' page.
-4. Users can see publicly requests of other users using 'Requests List' page.
-5. Users can accept public requests and provide loans to borrowers as lenders using the same page on click 'Lend' button.
-6. Users can see the status of their requests in 'My Requests' page.
-7. Users can see their transactions as borrowers and lenders to other users using 'My Borrower Transactions' and 'My Lender Transactions' page respectively.
-8. Users can log out of the website using 'Logout' button.
+# Demonstration 
 
-## Build
+Demonstration of our Dapp is added to [this link](https://drive.google.com/file/d/1Nl1A1M9tSSSCcvrRiWKAgZ-b1Ne3qDAM/view?usp=sharing).
 
-### Node
+<div id="features" />
 
-* For Linux:
-```
-curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
+<!-- GETTING STARTED -->
+# Features
 
-* For Mac:
-```
-brew install node
-```
+* Borrowers can create their loan proposal with the amount they want, their favourable repayment due date and CID of their mortgage uploaded on IPFS.
+> As of now we are using a decentralised public IPFS gateway. To use our DApp generate your file CID [here](https://www.dreamlink.cloud/) before adding it as a mortgage.
+* Lender's can verify the borrower's data and send their proposal with their favourable interest rate.
+* Borrower's can choose multiple lenders of their interest.
+* Borrower can repay the loan anytime they want before the due date and amortized loan will be transacted.
+* After the repayment date has passed, borrower cannot repay the loan and their mortgage will be revoked and auctioned off.
 
-### MongoDB
+<div id="technologies-used" />
 
-Install the community edition [here](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials).
+# Technologies, Libraries and Packages Used
 
-
-### React
-
-```
-npm install -g create-react-app
-```
-
-* To create a new React app:
-```
-create-react-app name_of_app
-```
-
-* To run the app, cd into the directory and do:
-```
-npm start
-```
-
-## Running the App
-
-* Run Mongo daemon:
-```
-sudo systemctl start mongod
-```
-Mongo will be running on port 27017.
+1. Ethereum
+2. Solidity
+3. Truffle
+4. MetaMask
+5. JavaScript
+6. Ganache
+7. Web3
+8. jQuery
 
 
-* Run Express Backend:
-```
-cd backend
-npm install
-npm start
-```
+<div id="local-setup" />
 
-* Run React Frontend:
-```
-cd frontend
-npm install
-npm start
-```
+# Local Setup
 
-Navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
-
+> **Pre-Requisites**
+> Ganache 
+> MetaMask
+> Truffle
+1. Clone the repository
+   ```sh
+    git clone https://gitlab.com/DASS2k22/DASS2K22-Team-8.git
+    ```
+2. Open Ganache to run your local blockchain.
+3. Run this command to build your smart contracts.
+    ```sh
+    truffle migrate --reset
+    truffle test
+    ```
+4. Update your config.js present in frontend directory using abi and address present in build files.
+5. Run on your local host and connect your wallet with metamask to perfrom the transactions.
