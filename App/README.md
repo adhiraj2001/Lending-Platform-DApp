@@ -1,9 +1,8 @@
 # Team 8
-- #### Team Members
-  - [Adhiraj Deshmukh](https://github.com/adhiraj2001)
-  - [Yash Agrawal](https://github.com/yash8589)
-  - [Hariharan](https://github.com/hashtaghari)
-  - [Amey Kunte](https://github.com/ameykunte)
+- [Adhiraj Deshmukh](https://github.com/adhiraj2001)
+- [Yash Agrawal](https://github.com/yash8589)
+- [Hariharan](https://github.com/hashtaghari)
+- [Amey Kunte](https://github.com/ameykunte)
 
 # Project Design
 

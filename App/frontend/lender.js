@@ -49,7 +49,7 @@ App = {
 
   loadContract: async () => {
     App.contract = new web3.eth.Contract(abi, address);
-    App.contract_2 = new web3.eth.Contract(abi_2, address_2);
+    // App.contract_2 = new web3.eth.Contract(abi_2, address_2);
   },
 
   loadProposals: async () => {
@@ -122,9 +122,9 @@ revokeMortgage: async (Id) => {
 
     console.log(typeof proposals[Id].mortgage);
 
-    await App.contract_2.methods
-      .addMortgage(proposals[Id].mortgage)
-      .send({ from: App.account });
+    // await App.contract_2.methods
+    //   .addMortgage(proposals[Id].mortgage)
+    //   .send({ from: App.account });
   },
 
   sendMoney : async (proposalId) => {

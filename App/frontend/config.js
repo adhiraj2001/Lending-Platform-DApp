@@ -1,9 +1,7 @@
-const address = "0xbfB1FF2991520F5feb263dFf002b22EC2B2801c0";
-const address_2 = "0x77332191c51184AcfFbBaE40CbFc04b110eD25c9";
+const address = "0x493bbF2B4a5d794D7f23B576436113D98dCaF6e8";
 
-const abi =[
+const abi = [
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -19,12 +17,11 @@ const abi =[
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -70,12 +67,11 @@ const abi =[
         "type": "uint8"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -121,12 +117,11 @@ const abi =[
         "type": "uint8"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -142,12 +137,11 @@ const abi =[
         "type": "address"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -179,6 +173,11 @@ const abi =[
       },
       {
         "internalType": "string",
+        "name": "proposal_text",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "mortgage",
         "type": "string"
       },
@@ -193,12 +192,11 @@ const abi =[
         "type": "bool"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -212,18 +210,21 @@ const abi =[
       },
       {
         "internalType": "string",
+        "name": "_proposal_text",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "_mortgage",
         "type": "string"
       }
     ],
     "name": "createProposal",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -243,21 +244,18 @@ const abi =[
     ],
     "name": "acceptProposal",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [],
     "name": "sendETHtoContract",
     "outputs": [],
-    "payable": true,
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "getAllPotentialLenders",
     "outputs": [
@@ -304,12 +302,11 @@ const abi =[
         "type": "tuple[]"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "getAllProposals",
     "outputs": [
@@ -337,6 +334,11 @@ const abi =[
           },
           {
             "internalType": "string",
+            "name": "proposal_text",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
             "name": "mortgage",
             "type": "string"
           },
@@ -356,12 +358,11 @@ const abi =[
         "type": "tuple[]"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "getAllLoans",
     "outputs": [
@@ -408,12 +409,11 @@ const abi =[
         "type": "tuple[]"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -428,12 +428,10 @@ const abi =[
     ],
     "name": "acceptLender",
     "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
     "inputs": [
       {
         "internalType": "uint256",
@@ -443,88 +441,6 @@ const abi =[
     ],
     "name": "loanPaid",
     "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-];
-
-const abi_2 = [
-  {
-    "inputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "borrower",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "borrowerToMortgage",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "name": "mortgageToBorrower",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "document",
-        "type": "string"
-      }
-    ],
-    "name": "addMortgage",
-    "outputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   }

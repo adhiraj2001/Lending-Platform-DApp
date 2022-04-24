@@ -46,8 +46,11 @@ App = {
       )
     }
   },
+  
   loadAccount: async () => {
-    App.account = (await web3.eth.getAccounts())[0];
+    let accounts = await web3.eth.getAccounts();
+    App.account = accounts[0];
+    
     $("#acc").attr("placeholder", App.account);
   },
 
@@ -60,10 +63,15 @@ App = {
   },
 
   createProposal: async () => {
-    const time = new Date($(".date").val()).getTime() / 1000;
-    const mortgage = $("#mortgage").val();
     const amount = $(".amount").val();
-    await App.contract.methods.createProposal(amount, time, mortgage).send({from: App.account});
+    const time = new Date($(".date").val()).getTime() / 1000;
+    const proposal_text = $('#proposal_text').val();
+    const mortgage = $("#mortgage").val();
+
+    await App.contract.methods.createProposal(amount, time, proposal_text, mortgage).send({ from: App.account })
+    .on('error', (error, receipt) => { // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
+      console.log('BRUHHH ::::: ' + error);
+    });
   },
 
   loadLenders : async () => {

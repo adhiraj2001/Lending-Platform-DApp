@@ -61,6 +61,7 @@ App = {
       var date = new Date(proposal.time * 1000);
       var dueDate =
         date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+
       if ((proposal.proposalId === App.param)) {
         let pdf = App.URL + proposal.mortgage;
         $(".v").html(`
@@ -85,9 +86,12 @@ App = {
                 />
                 </div>
               </div>
+
+
               <div class="form-group">
                 <p class="nav-item ml-auto">Loan Amount</p>
               </div>
+
               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -100,15 +104,18 @@ App = {
                   class="form-control"
                   id="id"
                   placeholder="${proposal.amount}"
-                  aria-label="Account No."
+                  aria-label="Loan Amount"
                   aria-describedby="basic-addon1"
                   disabled
                 />
                 </div>
               </div>
+
+
               <div class="form-group">
                 <p class="nav-item ml-auto">Date</p>
               </div>
+
               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -121,12 +128,39 @@ App = {
                   class="form-control"
                   id="id"
                   placeholder="${dueDate}"
-                  aria-label="Account No."
+                  aria-label="Due Date"
                   aria-describedby="basic-addon1"
                   disabled
                 />
                 </div>
               </div>
+
+              <div class="form-group">
+                <p class="nav-item ml-auto">Proposal Text</p>
+              </div>
+
+
+              <div class="form-group">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fas fa-file"></i>
+                    </span>
+                  </div>
+                  <textarea
+                    class="form-control"
+                    id="id4"
+                    name="proposal text" 
+                    rows="4"
+                    cols="50"
+                    placeholder="${proposal.proposal_text}"
+                    aria-label="Proposal Text"
+                    aria-describedby="basic-addon1"
+                    disabled
+                  ></textarea>
+                </div>
+              </div>
+
               <a href="" id="url" target="myIframe"></a>
               <iframe id="pdfRenderer" width="100%" height="400px" name="myIframe"></iframe>
               <br />

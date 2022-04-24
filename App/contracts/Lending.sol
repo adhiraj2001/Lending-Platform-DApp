@@ -27,6 +27,7 @@ contract Lending {
         address borrower;
         uint256 amount;
         uint256 time;
+        string proposal_text;
         string mortgage;
         ProposalState state;
         bool sendMoney;
@@ -52,6 +53,7 @@ contract Lending {
     function createProposal(
         uint256 _loanAmount,
         uint256 _time,
+        string memory _proposal_text,
         string memory _mortgage
     ) public {
         //change loanAmount to amount?
@@ -62,6 +64,7 @@ contract Lending {
                 msg.sender,
                 _loanAmount,
                 _time,
+                _proposal_text,
                 _mortgage,
                 ProposalState.WAITING,
                 false

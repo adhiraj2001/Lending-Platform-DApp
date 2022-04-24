@@ -45,6 +45,7 @@
             <form>
               <h3>Hello Borrower!</h3>
               <h4>Please enter the details to seek loan</h4>
+
               <div class="form-group">
                 <div class="form-group">
                   <p class="nav-item ml-auto">Account no.</p>
@@ -67,9 +68,12 @@
                   />
                 </div>
               </div>
+
+
               <div class="form-group">
                 <p class="nav-item ml-auto">Loan Amount</p>
               </div>
+              
               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -88,9 +92,12 @@
                   />
                 </div>
               </div>
+
+
               <div class="form-group">
                 <p class="nav-item ml-auto">Due Date</p>
               </div>
+
               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -102,16 +109,45 @@
                     type="date"
                     class="form-control date"
                     id="date"
-                    placeholder="Loan Amount"
-                    aria-label="Loan Amount"
+                    placeholder="Due Date"
+                    aria-label="Due Date"
                     aria-describedby="basic-addon1"
                     required
                   />
                 </div>
               </div>
+
+              
+              <div class="form-group">
+                <p class="nav-item ml-auto">Proposal Text</p>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fas fa-file"></i>
+                    </span>
+                  </div>
+                  <textarea
+                    class="form-control"
+                    id="proposal_text"
+                    name="proposal text" 
+                    rows="4"
+                    cols="50"
+                    placeholder="Write your proposal text here"
+                    aria-label="Proposal Text"
+                    aria-describedby="basic-addon1"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+
               <div class="form-group">
                 <p class="nav-item ml-auto">Upload Mortgage</p>
               </div>
+
               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -124,13 +160,15 @@
                     class="form-control"
                     id="mortgage"
                     placeholder="Mortgage Address"
-                    aria-label="Loan Amount"
+                    aria-label="Mortgage Address"
                     aria-describedby="basic-addon1"
                     required
                   />
                 </div>
               </div>
+
               <br />
+
               <div>
                 <button id="submit" type="submit" class="btn btn-primary btn-lg btn-block">
                 <i class="fas fa-search-dollar"></i> Submit Loan Proposal
