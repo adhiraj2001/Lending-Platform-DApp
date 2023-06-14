@@ -50,7 +50,7 @@ Demonstration of our Dapp is added to [this link](https://drive.google.com/file/
 > Truffle
 1. Clone the repository
    ```sh
-    git clone https://gitlab.com/DASS2k22/DASS2K22-Team-8.git
+    git clone https://github.com/adhiraj2001/Lending-Platform-DApp.git && cd Lending-Platform-DApp/App
     ```
 2. Open Ganache to run your local blockchain.
 3. Run this command to build your smart contracts.
